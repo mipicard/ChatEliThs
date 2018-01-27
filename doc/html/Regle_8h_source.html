@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>RummiPlane:  Fichier source de src/Regle.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RummiPlane
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Regle.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Regle_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef REGLE_H_INCLUDED</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define REGLE_H_INCLUDED</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Type__Data_8h.html">Type_Data.h</a>&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Regle_8h.html#abdc9b40a5a18cd099c0dbf069f9d050c">suite_valide</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Combinaison</a> &amp; s);</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Regle_8h.html#a6b05577fe5ab3664d694df383908b283">groupe_valide</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Combinaison</a> &amp; g);</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Regle_8h.html#a312d9ad357a6604f1296f38847e75e89">combinaison_valide</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Combinaison</a> &amp; c);</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Regle_8h.html#aa493fe505b617bd2062fc07c29055ca6">proposition_valide</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Table</a> &amp; t);</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="Regle_8h.html#a904837ab2b4297c9f913d5d93d734534">points_groupe</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Combinaison</a> &amp; g);</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="Regle_8h.html#aa0c5341733b905fba8b0d02b022412fc">points_suite</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Combinaison</a> &amp; s);</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="Regle_8h.html#a6029de143b42c2062f0de37dad6309f7">lespoints</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Pose</a> &amp; p);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif //REGLE_H_INCLUDED</span></div><div class="ttc" id="classListeOCaml_html"><div class="ttname"><a href="classListeOCaml.html">ListeOCaml</a></div><div class="ttdef"><b>Definition:</b> ListeOCaml.h:9</div></div>
+<div class="ttc" id="Regle_8h_html_a6029de143b42c2062f0de37dad6309f7"><div class="ttname"><a href="Regle_8h.html#a6029de143b42c2062f0de37dad6309f7">lespoints</a></div><div class="ttdeci">unsigned int lespoints(const Pose &amp;p)</div></div>
+<div class="ttc" id="Regle_8h_html_aa493fe505b617bd2062fc07c29055ca6"><div class="ttname"><a href="Regle_8h.html#aa493fe505b617bd2062fc07c29055ca6">proposition_valide</a></div><div class="ttdeci">bool proposition_valide(const Table &amp;t)</div></div>
+<div class="ttc" id="Regle_8h_html_a904837ab2b4297c9f913d5d93d734534"><div class="ttname"><a href="Regle_8h.html#a904837ab2b4297c9f913d5d93d734534">points_groupe</a></div><div class="ttdeci">unsigned int points_groupe(const Combinaison &amp;g)</div></div>
+<div class="ttc" id="Type__Data_8h_html"><div class="ttname"><a href="Type__Data_8h.html">Type_Data.h</a></div></div>
+<div class="ttc" id="Regle_8h_html_abdc9b40a5a18cd099c0dbf069f9d050c"><div class="ttname"><a href="Regle_8h.html#abdc9b40a5a18cd099c0dbf069f9d050c">suite_valide</a></div><div class="ttdeci">bool suite_valide(const Combinaison &amp;s)</div></div>
+<div class="ttc" id="Regle_8h_html_a6b05577fe5ab3664d694df383908b283"><div class="ttname"><a href="Regle_8h.html#a6b05577fe5ab3664d694df383908b283">groupe_valide</a></div><div class="ttdeci">bool groupe_valide(const Combinaison &amp;g)</div></div>
+<div class="ttc" id="Regle_8h_html_a312d9ad357a6604f1296f38847e75e89"><div class="ttname"><a href="Regle_8h.html#a312d9ad357a6604f1296f38847e75e89">combinaison_valide</a></div><div class="ttdeci">bool combinaison_valide(const Combinaison &amp;c)</div></div>
+<div class="ttc" id="Regle_8h_html_aa0c5341733b905fba8b0d02b022412fc"><div class="ttname"><a href="Regle_8h.html#aa0c5341733b905fba8b0d02b022412fc">points_suite</a></div><div class="ttdeci">unsigned int points_suite(const Combinaison &amp;s)</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

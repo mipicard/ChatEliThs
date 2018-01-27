@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>RummiPlane:  Fichier source de src/Routine.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RummiPlane
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Routine.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Routine_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ROUTINE_H_INCLUDED</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ROUTINE_H_INCLUDED</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Regle_8h.html">Regle.h</a>&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="State_8h.html">State.h</a>&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<a class="code" href="classListeOCaml.html">Mset&lt;Tuile&gt;</a> <a class="code" href="Routine_8h.html#a420961afc3b8af1aa981d2b451a713f7">setof_tuiles</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Table</a> &amp; t);</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Routine_8h.html#a5f8887a777f2952aa7d5e59ea2dc8cd9">premier_coup_valide</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Main</a> &amp; m0,<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Pose</a> &amp; p,<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Main</a> &amp; m1);</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Routine_8h.html#a66efaaf89bca04e3ab56fb42e15e6a9b">coup_valide</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Table</a> &amp; t0,<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Main</a> &amp; m0,<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Table</a> &amp; t1, <span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Main</a> &amp; m1);</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="classListeOCaml.html">Table</a> <a class="code" href="Routine_8h.html#a05e9e7a7ebe800ac81a858ceb2629680">ajouter_tuiles</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Table</a> &amp; ta,<span class="keyword">const</span> <a class="code" href="classTuile.html">Tuile</a> &amp; tu);</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<a class="code" href="classListeOCaml.html">Combinaison</a> <a class="code" href="Routine_8h.html#a269ae3e698a92c96cc8375685001373e">proposer_suite</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Main</a> &amp; m);</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<a class="code" href="classListeOCaml.html">Combinaison</a> <a class="code" href="Routine_8h.html#a527a3f5a85c57575d120837f79bfa129">proposer_groupe</a>(<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Main</a> &amp; m);</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> <a class="code" href="Routine_8h.html#a0d1a280cbf8c9dcea4b80aef67751849">piocher</a>(<span class="keyword">const</span> <a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> &amp; s);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> <a class="code" href="Routine_8h.html#a86aacf060e21b98411fe95b7ef9a66cd">jouer_un_coup</a>(<span class="keyword">const</span> <a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> &amp; s,<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Table</a> &amp; t);</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> <a class="code" href="Routine_8h.html#a735f443fba997c5ed24e000a09ef46d7">jouer_premier_coup</a>(<span class="keyword">const</span> <a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> &amp; s,<span class="keyword">const</span> <a class="code" href="classListeOCaml.html">Pose</a> &amp; p);</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> <a class="code" href="Routine_8h.html#af2cca359a39f82a4edc6935aaa6fccfd">passer</a>(<span class="keyword">const</span> <a class="code" href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a> &amp; s);</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif //ROUTINE_H_INCLUDED</span></div><div class="ttc" id="Routine_8h_html_a269ae3e698a92c96cc8375685001373e"><div class="ttname"><a href="Routine_8h.html#a269ae3e698a92c96cc8375685001373e">proposer_suite</a></div><div class="ttdeci">Combinaison proposer_suite(const Main &amp;m)</div></div>
+<div class="ttc" id="classListeOCaml_html"><div class="ttname"><a href="classListeOCaml.html">ListeOCaml</a></div><div class="ttdef"><b>Definition:</b> ListeOCaml.h:9</div></div>
+<div class="ttc" id="Routine_8h_html_a0d1a280cbf8c9dcea4b80aef67751849"><div class="ttname"><a href="Routine_8h.html#a0d1a280cbf8c9dcea4b80aef67751849">piocher</a></div><div class="ttdeci">State piocher(const State &amp;s)</div></div>
+<div class="ttc" id="Routine_8h_html_af2cca359a39f82a4edc6935aaa6fccfd"><div class="ttname"><a href="Routine_8h.html#af2cca359a39f82a4edc6935aaa6fccfd">passer</a></div><div class="ttdeci">State passer(const State &amp;s)</div></div>
+<div class="ttc" id="Regle_8h_html"><div class="ttname"><a href="Regle_8h.html">Regle.h</a></div></div>
+<div class="ttc" id="Routine_8h_html_a735f443fba997c5ed24e000a09ef46d7"><div class="ttname"><a href="Routine_8h.html#a735f443fba997c5ed24e000a09ef46d7">jouer_premier_coup</a></div><div class="ttdeci">State jouer_premier_coup(const State &amp;s, const Pose &amp;p)</div></div>
+<div class="ttc" id="Routine_8h_html_a420961afc3b8af1aa981d2b451a713f7"><div class="ttname"><a href="Routine_8h.html#a420961afc3b8af1aa981d2b451a713f7">setof_tuiles</a></div><div class="ttdeci">Mset&lt; Tuile &gt; setof_tuiles(const Table &amp;t)</div></div>
+<div class="ttc" id="State_8h_html_a3ad99d468d89f1e1087f8233b0c2948c"><div class="ttname"><a href="State_8h.html#a3ad99d468d89f1e1087f8233b0c2948c">State</a></div><div class="ttdeci">std::tuple&lt; LesStatuts, Table, Pioche, Joueur &gt; State</div><div class="ttdef"><b>Definition:</b> State.h:16</div></div>
+<div class="ttc" id="Routine_8h_html_a66efaaf89bca04e3ab56fb42e15e6a9b"><div class="ttname"><a href="Routine_8h.html#a66efaaf89bca04e3ab56fb42e15e6a9b">coup_valide</a></div><div class="ttdeci">bool coup_valide(const Table &amp;t0, const Main &amp;m0, const Table &amp;t1, const Main &amp;m1)</div></div>
+<div class="ttc" id="Routine_8h_html_a05e9e7a7ebe800ac81a858ceb2629680"><div class="ttname"><a href="Routine_8h.html#a05e9e7a7ebe800ac81a858ceb2629680">ajouter_tuiles</a></div><div class="ttdeci">Table ajouter_tuiles(const Table &amp;ta, const Tuile &amp;tu)</div></div>
+<div class="ttc" id="Routine_8h_html_a5f8887a777f2952aa7d5e59ea2dc8cd9"><div class="ttname"><a href="Routine_8h.html#a5f8887a777f2952aa7d5e59ea2dc8cd9">premier_coup_valide</a></div><div class="ttdeci">bool premier_coup_valide(const Main &amp;m0, const Pose &amp;p, const Main &amp;m1)</div></div>
+<div class="ttc" id="classTuile_html"><div class="ttname"><a href="classTuile.html">Tuile</a></div><div class="ttdef"><b>Definition:</b> Tuile.h:15</div></div>
+<div class="ttc" id="State_8h_html"><div class="ttname"><a href="State_8h.html">State.h</a></div></div>
+<div class="ttc" id="Routine_8h_html_a527a3f5a85c57575d120837f79bfa129"><div class="ttname"><a href="Routine_8h.html#a527a3f5a85c57575d120837f79bfa129">proposer_groupe</a></div><div class="ttdeci">Combinaison proposer_groupe(const Main &amp;m)</div></div>
+<div class="ttc" id="Routine_8h_html_a86aacf060e21b98411fe95b7ef9a66cd"><div class="ttname"><a href="Routine_8h.html#a86aacf060e21b98411fe95b7ef9a66cd">jouer_un_coup</a></div><div class="ttdeci">State jouer_un_coup(const State &amp;s, const Table &amp;t)</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>
