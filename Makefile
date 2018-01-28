@@ -33,10 +33,18 @@ obj/%.o : src/%.cpp
 .PHONY: clean mrproper doc
 
 clean :
+ifeq ($(OS),Windows_NT)
+	del /Q obj\*\*
+else
 	-rm -f obj/*/*
+endif
 
-mrproper :
+mrproper : clean
+ifeq ($(OS),Windows_NT)
+	del /S /Q obj bin doc\html
+else
 	-rm -rf obj bin doc/html
+endif
 
 doc :
 	doxygen doc/config.doxy
