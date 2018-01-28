@@ -32,7 +32,11 @@ class SocketSSL{
 			
 			const SOCKET get_sock() const;
 			
+			void set_sock(const SOCKET & s);
+			
 			const std::string get_addr_and_port() const;
+			
+			void set_addr_and_port(const std::string & addr,const std::string & port);
 };
 
 #endif //SOCKETSSL_H_INCLUDED

@@ -3,6 +3,7 @@
 
 #ifdef WIN32
 	#include <winsock2.h>
+	typedef int socklen_t;
 //#elif defined(__linux__)
 #else
 	#include <sys/types.h>
