@@ -115,7 +115,7 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 			std::cout << "Erreur lors de la récupération des infos sur le socket testé." << std::endl;
 			exit(EXIT_FAILURE);
 		}
-		std::cout << "On tente l'adresse " << addr << " sur le port " << this->port << "..." << std::endl;
+		//std::cout << "On tente l'adresse " << addr << " sur le port " << this->port << "..." << std::endl;
 	
 		sock = socket(rp->ai_family, rp->ai_socktype,rp->ai_protocol);
 		if(sock==INVALID_SOCKET){//Tente l'allocation de la socket
@@ -126,7 +126,7 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 		
 		if(connect(sock, rp->ai_addr, rp->ai_addrlen)==0){
 			b = true;
-			std::cout << "Connexion effectué." << std::endl;
+			//std::cout << "Connexion effectué." << std::endl;
 			break; 
 		}else{
 			std::cout << "Impossible d'utiliser ce socket (bind). Nouvel essai..." << std::endl;
@@ -162,7 +162,7 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 	std::string addr(host),port(service);
 	ret.set_addr_and_port(addr,port);
 	
-	std::cout << "log : connexion depuis " << host << ":" << service << std::endl;
+	//std::cout << "log : connexion depuis " << host << ":" << service << std::endl;
 	
 	return ret;
 }

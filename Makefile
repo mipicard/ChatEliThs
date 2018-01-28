@@ -1,14 +1,20 @@
 CC=g++
 FLAG=-Wall -std=c++11
 
+#Objet
+Socket_OBJ=$(patsubst src/%.cpp,obj/%.o,$(wildcard src/Socket/*.cpp))
+Serveur_OBJ=$(patsubst src/%.cpp,obj/%.o,$(wildcard src/Serveur/*.cpp))
+Client_OBJ=$(patsubst src/%.cpp,obj/%.o,$(wildcard src/Client/*.cpp))
+
+
 EXE=Client_ChatEliThs Serveur_ChatEliThs
 
 all : make_dir $(EXE)
 
-Client_ChatEliThs : obj/Socket/Socket_Portabilite.o obj/Socket/SocketSSL.o obj/Client/main.o
+Client_ChatEliThs : $(Socket_OBJ) $(Client_OBJ)
 	$(CC) $^ $(FLAG) -g -o bin/$@.exe
 	
-Serveur_ChatEliThs : obj/Socket/Socket_Portabilite.o obj/Socket/SocketSSL.o obj/Serveur/main.o
+Serveur_ChatEliThs : $(Socket_OBJ) $(Serveur_OBJ)
 	$(CC) $^ $(FLAG) -g -o bin/$@.exe
 
 #Création des dossiers de compilation
@@ -34,7 +40,7 @@ obj/%.o : src/%.cpp
 
 clean :
 ifeq ($(OS),Windows_NT)
-	del /Q obj\*\*
+	del /Q obj\Socket\* obj\Serveur\* obj\Client\*
 else
 	-rm -f obj/*/*
 endif
