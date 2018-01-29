@@ -3,6 +3,12 @@
 
 #include <string>
 
+//SSL
+//#include <openssl/applink.c>
+#include <openssl/bio.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+
 #include "Socket_Portabilite.h"
 
 namespace SocketSSL_n{	
@@ -15,7 +21,7 @@ class SocketSSL{
 		private :
 			SOCKET sock;
 			char addr[NI_MAXHOST], port[NI_MAXSERV];
-			//SSL *cssl;
+			SSL *cssl;
 			
 		public :
 			SocketSSL();

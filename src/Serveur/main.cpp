@@ -10,7 +10,7 @@ int main(){
 	std::cout << "Socket serveur : " << ecoute_serveur.get_sock() << " sur l'addresse:port " << ecoute_serveur.get_addr_and_port() << std::endl;
 	
 	while(true){
-		ecoute_serveur.accept_connexion_client();
+		(ecoute_serveur.accept_connexion_client()).end_and_destroy();
 	}
 	
 	ecoute_serveur.end_and_destroy();

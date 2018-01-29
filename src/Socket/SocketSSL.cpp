@@ -1,8 +1,3 @@
-//#include <openssl/applink.c>
-//#include <openssl/bio.h>
-//#include <openssl/ssl.h>
-//#include <openssl/err.h>
-
 #include <cstring>
 #include <iostream>
 
@@ -162,7 +157,7 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 	std::string addr(host),port(service);
 	ret.set_addr_and_port(addr,port);
 	
-	//std::cout << "log : connexion depuis " << host << ":" << service << std::endl;
+	std::cout << "log : connexion depuis " << host << ":" << service << std::endl;
 	
 	return ret;
 }
