@@ -1,5 +1,7 @@
 CC=g++
 FLAG=-Wall -std=c++11
+LDFLAGS = -L/usr/local/lib
+LDLIBS = -lssl -lcrypto
 
 #Objet
 Socket_OBJ=$(patsubst src/%.cpp,obj/%.o,$(wildcard src/Socket/*.cpp))
@@ -12,10 +14,10 @@ EXE=Client_ChatEliThs Serveur_ChatEliThs
 all : make_dir $(EXE)
 
 Client_ChatEliThs : $(Socket_OBJ) $(Client_OBJ)
-	$(CC) $^ $(FLAG) -g -o bin/$@.exe
+	$(CC) $^ $(FLAG) -g -o bin/$@.exe $(LDFLAGS) $(LDLIBS)
 	
 Serveur_ChatEliThs : $(Socket_OBJ) $(Serveur_OBJ)
-	$(CC) $^ $(FLAG) -g -o bin/$@.exe
+	$(CC) $^ $(FLAG) -g -o bin/$@.exe $(LDFLAGS) $(LDLIBS)
 
 #Création des dossiers de compilation
 make_dir :
@@ -34,7 +36,7 @@ endif
 
 #Commande globales
 obj/%.o : src/%.cpp
-	$(CC) $^ $(FLAG) -g -c -o $@ 
+	$(CC) $^ $(FLAG) -g -c -o $@ $(LDFLAGS) $(LDLIBS)
 
 .PHONY: clean mrproper doc
 

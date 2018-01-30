@@ -5,9 +5,9 @@
 
 void SocketSSL_n::init(){
 	Socket_Portabilite::init();
-	//SSL_load_error_strings();
-	//SSL_library_init();
-	//OpenSSL_add_all_algorithms();
+	SSL_load_error_strings();
+	SSL_library_init();
+	OpenSSL_add_all_algorithms();
 }
 
 void SocketSSL_n::end(){
@@ -137,6 +137,11 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 	}
 	
 	freeaddrinfo(result); //On libère la structure des addresses possibles
+	
+	//PARTIE SSL
+	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_client_method());
+	
+	SSL_CTX_free(sslctx);
 }
 			
 SocketSSL SocketSSL::accept_connexion_client() const{
@@ -158,6 +163,11 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 	ret.set_addr_and_port(addr,port);
 	
 	std::cout << "log : connexion depuis " << host << ":" << service << std::endl;
+	
+	//PARTIE SSL
+	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_server_method());
+	
+	SSL_CTX_free(sslctx);
 	
 	return ret;
 }
