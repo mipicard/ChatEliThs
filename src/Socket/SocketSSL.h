@@ -43,6 +43,14 @@ class SocketSSL{
 			const std::string get_addr_and_port() const;
 			
 			void set_addr_and_port(const std::string & addr,const std::string & port);
+			
+			SSL * get_cssl() const;
+			
+			void set_cssl(SSL * cssl);
+			
+			int read(std::string &s) const;
+			
+			int write(const std::string &s) const;
 };
 
 #endif //SOCKETSSL_H_INCLUDED

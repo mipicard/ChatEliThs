@@ -1,5 +1,6 @@
 #include <cstring>
 #include <iostream>
+#include <cstdio>
 
 #include "SocketSSL.h"
 
@@ -7,14 +8,14 @@ void SocketSSL_n::init(){
 	Socket_Portabilite::init();
 	SSL_load_error_strings();
 	SSL_library_init();
-	OpenSSL_add_all_algorithms();
+	//OpenSSL_add_all_algorithms();
 }
 
 void SocketSSL_n::end(){
 	Socket_Portabilite::end();
 }
 
-SocketSSL::SocketSSL() : sock(INVALID_SOCKET),addr("0.0.0.0"),port("0000"){}
+SocketSSL::SocketSSL() : sock(INVALID_SOCKET),addr("0.0.0.0"),port("0000"),cssl(NULL){}
 
 SocketSSL::~SocketSSL(){
 	end_and_destroy();
@@ -137,11 +138,31 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 	}
 	
 	freeaddrinfo(result); //On libère la structure des addresses possibles
+	std::cout << get_addr_and_port() << std::endl;
 	
 	//PARTIE SSL
 	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_client_method());
-	
+	if(SSL_CTX_use_certificate_file(sslctx,"servwiki.crt",SSL_FILETYPE_PEM)<=0){
+		std::cout << "Erreur lors du chargement du certificat publique serveur." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if(SSL_CTX_use_PrivateKey_file(sslctx,"servwiki.key",SSL_FILETYPE_PEM)<=0){
+		std::cout << "Erreur lors du chargement de la clé privée serveur." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if(SSL_CTX_load_verify_locations(sslctx,"ca.crt",NULL)==0){
+		std::cout << "Erreur lors du chargement du certification publique de validation" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	cssl = SSL_new(sslctx);
 	SSL_CTX_free(sslctx);
+	SSL_set_fd(cssl, sock);
+	if(SSL_connect(cssl)!=1){
+		printf("Error: %s\n", ERR_reason_error_string(ERR_get_error()));
+		//std::cout << "Handshake unsuccessfull : link refused." << std::endl;
+		end_and_destroy();
+		exit(EXIT_FAILURE);
+	}
 }
 			
 SocketSSL SocketSSL::accept_connexion_client() const{
@@ -162,17 +183,39 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 	std::string addr(host),port(service);
 	ret.set_addr_and_port(addr,port);
 	
-	std::cout << "log : connexion depuis " << host << ":" << service << std::endl;
+	std::cout << "log : connexion depuis " << host << ":" << service << " ";
 	
 	//PARTIE SSL
 	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_server_method());
-	
+	if(SSL_CTX_use_certificate_file(sslctx,"servwiki.crt",SSL_FILETYPE_PEM)<=0){
+		std::cout << "Erreur lors du chargement du certificat publique serveur." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if(SSL_CTX_use_PrivateKey_file(sslctx,"servwiki.key",SSL_FILETYPE_PEM)<=0){
+		std::cout << "Erreur lors du chargement de la clé privée serveur." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	ret.set_cssl(SSL_new(sslctx));
 	SSL_CTX_free(sslctx);
+	SSL_set_fd(ret.get_cssl(),ret.get_sock());
+	if(SSL_accept(ret.get_cssl())!=1){
+		printf("Error: %s\n", ERR_reason_error_string(ERR_get_error()));
+		//std::cout << "Handshake unsuccessfull : link refused." << std::endl;
+		ret.end_and_destroy();
+		exit(EXIT_FAILURE);
+	}
+	
+	std::cout << "et SSL en place." << std::endl;
 	
 	return ret;
 }
 
 void SocketSSL::end_and_destroy(){
+	if(cssl!=NULL){
+		SSL_shutdown(cssl);
+		SSL_free(cssl);
+		cssl = NULL;
+	}
 	if(sock!=INVALID_SOCKET){
 		//std::cout << "Fermeture du socket" << std::endl;
 		close(sock);
@@ -194,3 +237,18 @@ void SocketSSL::set_addr_and_port(const std::string & addr,const std::string & p
 	strcpy(this->addr,addr.c_str());
 	strcpy(this->port,port.c_str());
 }
+
+SSL * SocketSSL::get_cssl() const{return cssl;}
+			
+void SocketSSL::set_cssl(SSL * cssl){
+	this->cssl = cssl;
+}
+
+int read(std::string &s) const{
+	return 0;
+}
+			
+int write(const std::string &s) const{
+	return 0;
+}
+

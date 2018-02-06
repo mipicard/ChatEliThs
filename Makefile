@@ -15,9 +15,12 @@ all : make_dir $(EXE)
 
 Client_ChatEliThs : $(Socket_OBJ) $(Client_OBJ)
 	$(CC) $^ $(FLAG) -g -o bin/$@.exe $(LDFLAGS) $(LDLIBS)
+	-cp data/ca.crt bin/ca.crt
 	
 Serveur_ChatEliThs : $(Socket_OBJ) $(Serveur_OBJ)
 	$(CC) $^ $(FLAG) -g -o bin/$@.exe $(LDFLAGS) $(LDLIBS)
+	-cp data/servwiki.crt bin/servwiki.crt
+	-cp data/servwiki.key bin/servwiki.key
 
 #Création des dossiers de compilation
 make_dir :
