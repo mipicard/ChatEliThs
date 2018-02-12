@@ -51,6 +51,8 @@ class SocketSSL{
 			int read(std::string &s) const;
 			
 			int write(const std::string &s) const;
+			
+			void set_block(const bool block);
 };
 
 #endif //SOCKETSSL_H_INCLUDED

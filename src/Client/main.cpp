@@ -7,7 +7,13 @@ int main(){
 	
 	SocketSSL liaison_client;
 	liaison_client.creer_liaison_client("localhost","8888");
-	liaison_client.end_and_destroy();	
+	
+	std::string message;
+	message.resize(6);
+	liaison_client.read(message);
+	std::cout << "Serveur dit : " << message << std::endl;
+	
+	liaison_client.end_and_destroy();
 	
 	SocketSSL_n::end();
 	

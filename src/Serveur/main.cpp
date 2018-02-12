@@ -1,23 +1,17 @@
 #include <iostream>
 
-#include "../Socket/SocketSSL.h"
+#include "Serveur.h"
 
 int main(){
-	SocketSSL_n::init();
 	
-	SocketSSL ecoute_serveur;
-	ecoute_serveur.creer_ecoute_serveur("8888");
-	std::cout << "Socket serveur : " << ecoute_serveur.get_sock() << " sur l'addresse:port " << ecoute_serveur.get_addr_and_port() << std::endl;
+	Serveur s;
+	s.start_serveur("8888");
 	
-	while(true){
-		SocketSSL client = ecoute_serveur.accept_connexion_client();
-		
-		client.end_and_destroy();
-	}
+	std::cout << "Socket serveur : " << s.get_ecoute().get_sock() << " sur l'addresse:port " << s.get_ecoute().get_addr_and_port() << std::endl;
+
+	sleep(300);
 	
-	ecoute_serveur.end_and_destroy();
-	
-	SocketSSL_n::end();
+	s.stop_serveur();
 	
 	return EXIT_SUCCESS;
 }

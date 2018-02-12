@@ -1,6 +1,13 @@
 #include <cstring>
 #include <iostream>
 #include <cstdio>
+#ifdef WIN32
+
+#else
+	#include <fcntl.h>
+#endif
+#include <errno.h>
+
 
 #include "SocketSSL.h"
 
@@ -173,8 +180,11 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 	
 	ret.set_sock(accept(sock, (struct sockaddr*) &tadr, &tadr_len));
 	if(ret.get_sock()==INVALID_SOCKET){
-		std::cout << "Probleme lors de l'allocation d'un socket de discussion" << std::endl;
-		exit(EXIT_FAILURE);
+		if(errno!=EAGAIN){
+			std::cout << "Probleme lors de l'allocation d'un socket de discussion" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		return ret;
 	}
 	if(getnameinfo((struct sockaddr*) &tadr, tadr_len, host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV)!=0){
 		std::cout << "Erreur lors de la récupération des infos sur le socket de discussion." << std::endl;
@@ -244,11 +254,36 @@ void SocketSSL::set_cssl(SSL * cssl){
 	this->cssl = cssl;
 }
 
-int read(std::string &s) const{
-	return 0;
+int SocketSSL::read(std::string &s) const{
+	char * r = new char[s.size()];
+	int ret = SSL_read(cssl,r,s.size());
+	if(ret>0)
+		s.assign(r,ret);
+	delete[] r;
+	return ret;
 }
 			
-int write(const std::string &s) const{
-	return 0;
+int SocketSSL::write(const std::string &s) const{
+	return SSL_write(cssl,s.data(),s.size());
 }
 
+void SocketSSL::set_block(const bool block){
+	if(block){
+		
+	}else{
+#ifdef WIN32
+	
+#else
+		int oldattr = fcntl(sock, F_GETFL);
+		if(oldattr==-1){
+			std::cout <<"Erreur fnctl" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		int r = fcntl(sock, F_SETFL, oldattr | O_NONBLOCK);
+		if(r==-1){
+			std::cout <<"Erreur fnctl" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+#endif
+	}
+}

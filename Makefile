@@ -1,7 +1,7 @@
 CC=g++
 FLAG=-Wall -std=c++11
 LDFLAGS = -L/usr/local/lib
-LDLIBS = -lssl -lcrypto
+LDLIBS = -lssl -lcrypto -pthread
 
 #Objet
 Socket_OBJ=$(patsubst src/%.cpp,obj/%.o,$(wildcard src/Socket/*.cpp))
