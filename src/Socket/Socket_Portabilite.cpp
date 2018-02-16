@@ -8,6 +8,8 @@ void Socket_Portabilite::init(){
 		puts("WSAStartup failed !");
 		exit(EXIT_FAILURE);
 	}
+#else
+	signal(SIGPIPE,SIG_IGN);
 #endif
 }
 

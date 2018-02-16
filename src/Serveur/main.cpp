@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "Serveur.h"
 
@@ -6,10 +7,9 @@ int main(){
 	
 	Serveur s;
 	s.start_serveur("8888");
-	
-	std::cout << "Socket serveur : " << s.get_ecoute().get_sock() << " sur l'addresse:port " << s.get_ecoute().get_addr_and_port() << std::endl;
 
-	sleep(300);
+	std::string exit="";
+	while(exit!="exit"){std::cin >> exit;}
 	
 	s.stop_serveur();
 	

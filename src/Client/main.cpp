@@ -8,10 +8,13 @@ int main(){
 	SocketSSL liaison_client;
 	liaison_client.creer_liaison_client("localhost","8888");
 	
-	std::string message;
-	message.resize(6);
-	liaison_client.read(message);
-	std::cout << "Serveur dit : " << message << std::endl;
+	std::cout << "Je suis connecter." << std::endl;
+	for(unsigned int i=0;i<5;++i){
+		std::cout << "Attente de 2secondes..." << std::endl;
+		sleep(2);
+		liaison_client.write("Salut!!!");
+	}
+	std::cout << "Je pars." << std::endl;
 	
 	liaison_client.end_and_destroy();
 	

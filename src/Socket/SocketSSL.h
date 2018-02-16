@@ -32,7 +32,7 @@ class SocketSSL{
 			
 			void creer_liaison_client(const std::string & hostname,const std::string & port);
 			
-			SocketSSL accept_connexion_client() const;
+			SocketSSL* accept_connexion_client() const;
 			
 			void end_and_destroy();
 			
@@ -53,6 +53,14 @@ class SocketSSL{
 			int write(const std::string &s) const;
 			
 			void set_block(const bool block);
+			
+			bool connexion_terminer(int retour) const;
+			
+			//Operateur de comparaison
+			
+			bool operator == (const SocketSSL & s) const;
+			
+			bool operator != (const SocketSSL & s) const;
 };
 
 #endif //SOCKETSSL_H_INCLUDED

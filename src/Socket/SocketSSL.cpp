@@ -145,7 +145,7 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 	}
 	
 	freeaddrinfo(result); //On libère la structure des addresses possibles
-	std::cout << get_addr_and_port() << std::endl;
+	//std::cout << get_addr_and_port() << std::endl;
 	
 	//PARTIE SSL
 	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_client_method());
@@ -172,14 +172,14 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 	}
 }
 			
-SocketSSL SocketSSL::accept_connexion_client() const{
-	SocketSSL ret;
+SocketSSL* SocketSSL::accept_connexion_client() const{
+	SocketSSL* ret = new SocketSSL();
 	struct sockaddr_storage tadr;
 	socklen_t tadr_len = sizeof(struct sockaddr_storage);
 	char host[NI_MAXHOST], service[NI_MAXSERV];
 	
-	ret.set_sock(accept(sock, (struct sockaddr*) &tadr, &tadr_len));
-	if(ret.get_sock()==INVALID_SOCKET){
+	ret->set_sock(accept(sock, (struct sockaddr*) &tadr, &tadr_len));
+	if(ret->get_sock()==INVALID_SOCKET){
 		if(errno!=EAGAIN){
 			std::cout << "Probleme lors de l'allocation d'un socket de discussion" << std::endl;
 			exit(EXIT_FAILURE);
@@ -191,9 +191,9 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 		exit(EXIT_FAILURE);
 	}
 	std::string addr(host),port(service);
-	ret.set_addr_and_port(addr,port);
+	ret->set_addr_and_port(addr,port);
 	
-	std::cout << "log : connexion depuis " << host << ":" << service << " ";
+	//std::cout << "log : connexion depuis " << host << ":" << service << " ";
 	
 	//PARTIE SSL
 	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_server_method());
@@ -205,17 +205,17 @@ SocketSSL SocketSSL::accept_connexion_client() const{
 		std::cout << "Erreur lors du chargement de la clé privée serveur." << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	ret.set_cssl(SSL_new(sslctx));
+	ret->set_cssl(SSL_new(sslctx));
 	SSL_CTX_free(sslctx);
-	SSL_set_fd(ret.get_cssl(),ret.get_sock());
-	if(SSL_accept(ret.get_cssl())!=1){
+	SSL_set_fd(ret->get_cssl(),ret->get_sock());
+	if(SSL_accept(ret->get_cssl())!=1){
 		printf("Error: %s\n", ERR_reason_error_string(ERR_get_error()));
 		//std::cout << "Handshake unsuccessfull : link refused." << std::endl;
-		ret.end_and_destroy();
+		ret->end_and_destroy();
 		exit(EXIT_FAILURE);
 	}
 	
-	std::cout << "et SSL en place." << std::endl;
+	//std::cout << "et SSL en place." << std::endl;
 	
 	return ret;
 }
@@ -286,4 +286,16 @@ void SocketSSL::set_block(const bool block){
 		}
 #endif
 	}
+}
+
+bool SocketSSL::connexion_terminer(int retour) const{
+	return SSL_get_error(cssl,retour)==SSL_ERROR_ZERO_RETURN;
+}
+
+bool SocketSSL::operator == (const SocketSSL & s) const{
+	return this->sock==s.get_sock();
+}
+			
+bool SocketSSL::operator != (const SocketSSL & s) const{
+	return !(*this==s);
 }

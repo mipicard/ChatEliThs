@@ -12,6 +12,7 @@
 	#include <arpa/inet.h>
 	#include <unistd.h> /* close */
 	#include <netdb.h> /* gethostbyname */
+	#include <signal.h> /* pour gérer le SIGPIPE sous linux */
 	#define INVALID_SOCKET -1
 	#define SOCKET_ERROR -1
 	#define closesocket(s) close(s)
