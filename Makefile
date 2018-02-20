@@ -44,5 +44,5 @@ mrproper : clean
 	@-rm -rf obj bin doc/html
 
 doc :
-	doxygen doc/config.doxy
+	@-doxygen doc/config.doxy
 	

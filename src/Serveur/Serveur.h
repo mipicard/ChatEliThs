@@ -2,14 +2,17 @@
 #define SERVEUR_H_INCLUDED
 
 #include <atomic>
+#include <ctime>
 #include <thread>
 #include <vector>
 
-#include "../Socket/SocketSSL.h"
+#include "../Socket/Communication.h"
 #include "../Moniteur/Moniteur.h"
 
 typedef struct{
-	int idClient;
+	int id;
+	clock_t lastping;
+	
 	SocketSSL* texte;
 	std::thread * ecoute_texte;
 } Client;
@@ -21,12 +24,15 @@ class Serveur{
 		SocketSSL ecoute;
 		std::atomic<bool> serveur_up;
 		Moniteur<Client *> liste_client;
+		Moniteur<Client *> garbage;
 		
-		std::thread thread_boucle_serveur;
+		std::thread thread_boucle_serveur,thread_garbage_collector;
 		
 		std::mutex envoie_global;
 		
 		void boucle_serveur();
+		
+		void garbage_collector();
 		
 		void boucle_read_client_texte(Client * client);
 		

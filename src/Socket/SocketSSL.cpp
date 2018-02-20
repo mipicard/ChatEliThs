@@ -46,7 +46,9 @@ void SocketSSL::creer_ecoute_serveur(const std::string & port){
 	
 	if(getaddrinfo(NULL,port.c_str(),&hints,&result)!=0){//On recupère les adresses possibles
 		std::cout << "Failure in asking for the port : " << port << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	
 	rp = result;
@@ -54,12 +56,12 @@ void SocketSSL::creer_ecoute_serveur(const std::string & port){
 		bool yes = true;
 		sock = socket(rp->ai_family, rp->ai_socktype,rp->ai_protocol);
 		if(sock==INVALID_SOCKET){//Tente l'allocation de la socket
-			std::cout << "Impossible de creer un socket. Nouvel essai..." << std::endl;
+			//std::cout << "Impossible de creer un socket. Nouvel essai..." << std::endl;
 			rp = rp->ai_next;//On passe au suivant
 			continue;
 		}
 		if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR,&yes,sizeof(int))==-1){//Pour ne pas être jeter par le système (optionnelle)
-			std::cout << "setsockop error" << std::endl;
+			//std::cout << "setsockop error" << std::endl;
 			rp = rp->ai_next;//On passe au suivant
 			continue;
 		}
@@ -67,12 +69,14 @@ void SocketSSL::creer_ecoute_serveur(const std::string & port){
 			b = true;
 			if(getnameinfo(rp->ai_addr, rp->ai_addrlen,addr, NI_MAXHOST,this->port, NI_MAXSERV,NI_NUMERICSERV|NI_NUMERICHOST)!=0){
 				std::cout << "Erreur lors de la récupération des infos sur le socket créé." << std::endl;
-				exit(EXIT_FAILURE);
+				end_and_destroy();
+				return;
+				//exit(EXIT_FAILURE);
 			}
 			//std::cout << "Socket en écoute sur " << addr << ":" << port << std::endl;
 			break;
 		}else{
-			std::cout << "Impossible d'utiliser ce socket (bind). Nouvel essai..." << std::endl;
+			//std::cout << "Impossible d'utiliser ce socket (bind). Nouvel essai..." << std::endl;
 			close(sock);
 			rp = rp->ai_next;//On passe au suivant
 			continue;
@@ -81,13 +85,17 @@ void SocketSSL::creer_ecoute_serveur(const std::string & port){
 	
 	if(!b){
 		std::cout << "Impossible d'utiliser un socket (bind)" << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	
 	freeaddrinfo(result); //On libère la structure des addresses possibles
 	if(listen(sock,128)==-1){//On se met en ecoute
 		std::cout << "Impossible de se mettre en ecoute sur le socket."<< std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 }
 
@@ -109,20 +117,24 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 	
 	if(getaddrinfo(hostname.c_str(),port.c_str(),&hints,&result)!=0){//On recupère les adresses possibles
 		std::cout << "Failure in asking for the port : " << port << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	
 	rp = result;
 	while (rp != NULL) {
 		if(getnameinfo(rp->ai_addr, rp->ai_addrlen,addr, NI_MAXHOST,this->port, NI_MAXSERV,NI_NUMERICSERV|NI_NUMERICHOST)!=0){
 			std::cout << "Erreur lors de la récupération des infos sur le socket testé." << std::endl;
-			exit(EXIT_FAILURE);
+			end_and_destroy();
+			return;
+			//exit(EXIT_FAILURE);
 		}
 		//std::cout << "On tente l'adresse " << addr << " sur le port " << this->port << "..." << std::endl;
 	
 		sock = socket(rp->ai_family, rp->ai_socktype,rp->ai_protocol);
 		if(sock==INVALID_SOCKET){//Tente l'allocation de la socket
-			std::cout << "Impossible de creer un socket. Nouvel essai..." << std::endl;
+			//std::cout << "Impossible de creer un socket. Nouvel essai..." << std::endl;
 			rp = rp->ai_next;//On passe au suivant
 			continue;
 		}
@@ -132,7 +144,7 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 			//std::cout << "Connexion effectué." << std::endl;
 			break; 
 		}else{
-			std::cout << "Impossible d'utiliser ce socket (bind). Nouvel essai..." << std::endl;
+			//std::cout << "Impossible d'utiliser ce socket (bind). Nouvel essai..." << std::endl;
 			close(sock);
 			rp = rp->ai_next;//On passe au suivant
 			continue;
@@ -141,7 +153,9 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 
 	if(!b){
 		std::cout << "Impossible d'utiliser un socket (bind)" << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	
 	freeaddrinfo(result); //On libère la structure des addresses possibles
@@ -151,15 +165,21 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_client_method());
 	if(SSL_CTX_use_certificate_file(sslctx,"servwiki.crt",SSL_FILETYPE_PEM)<=0){
 		std::cout << "Erreur lors du chargement du certificat publique serveur." << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	if(SSL_CTX_use_PrivateKey_file(sslctx,"servwiki.key",SSL_FILETYPE_PEM)<=0){
 		std::cout << "Erreur lors du chargement de la clé privée serveur." << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	if(SSL_CTX_load_verify_locations(sslctx,"ca.crt",NULL)==0){
 		std::cout << "Erreur lors du chargement du certification publique de validation" << std::endl;
-		exit(EXIT_FAILURE);
+		end_and_destroy();
+		return;
+		//exit(EXIT_FAILURE);
 	}
 	cssl = SSL_new(sslctx);
 	SSL_CTX_free(sslctx);
@@ -168,7 +188,8 @@ void SocketSSL::creer_liaison_client(const std::string & hostname,const std::str
 		printf("Error: %s\n", ERR_reason_error_string(ERR_get_error()));
 		//std::cout << "Handshake unsuccessfull : link refused." << std::endl;
 		end_and_destroy();
-		exit(EXIT_FAILURE);
+		return;
+		//exit(EXIT_FAILURE);
 	}
 }
 			
@@ -184,11 +205,14 @@ SocketSSL* SocketSSL::accept_connexion_client() const{
 			std::cout << "Probleme lors de l'allocation d'un socket de discussion" << std::endl;
 			exit(EXIT_FAILURE);
 		}
+		ret->end_and_destroy();
 		return ret;
 	}
 	if(getnameinfo((struct sockaddr*) &tadr, tadr_len, host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV)!=0){
 		std::cout << "Erreur lors de la récupération des infos sur le socket de discussion." << std::endl;
-		exit(EXIT_FAILURE);
+		ret->end_and_destroy();
+		return ret;
+		//exit(EXIT_FAILURE);
 	}
 	std::string addr(host),port(service);
 	ret->set_addr_and_port(addr,port);
@@ -199,11 +223,15 @@ SocketSSL* SocketSSL::accept_connexion_client() const{
 	SSL_CTX *sslctx = SSL_CTX_new(SSLv23_server_method());
 	if(SSL_CTX_use_certificate_file(sslctx,"servwiki.crt",SSL_FILETYPE_PEM)<=0){
 		std::cout << "Erreur lors du chargement du certificat publique serveur." << std::endl;
-		exit(EXIT_FAILURE);
+		ret->end_and_destroy();
+		return ret;
+		//exit(EXIT_FAILURE);
 	}
 	if(SSL_CTX_use_PrivateKey_file(sslctx,"servwiki.key",SSL_FILETYPE_PEM)<=0){
 		std::cout << "Erreur lors du chargement de la clé privée serveur." << std::endl;
-		exit(EXIT_FAILURE);
+		ret->end_and_destroy();
+		return ret;
+		//exit(EXIT_FAILURE);
 	}
 	ret->set_cssl(SSL_new(sslctx));
 	SSL_CTX_free(sslctx);
@@ -212,7 +240,8 @@ SocketSSL* SocketSSL::accept_connexion_client() const{
 		printf("Error: %s\n", ERR_reason_error_string(ERR_get_error()));
 		//std::cout << "Handshake unsuccessfull : link refused." << std::endl;
 		ret->end_and_destroy();
-		exit(EXIT_FAILURE);
+		return ret;
+		//exit(EXIT_FAILURE);
 	}
 	
 	//std::cout << "et SSL en place." << std::endl;
@@ -255,36 +284,47 @@ void SocketSSL::set_cssl(SSL * cssl){
 }
 
 int SocketSSL::read(std::string &s) const{
-	char * r = new char[s.size()];
-	int ret = SSL_read(cssl,r,s.size());
-	if(ret>0)
-		s.assign(r,ret);
-	delete[] r;
-	return ret;
+	if(cssl!=NULL){
+		char * r = new char[s.size()];
+		int ret = SSL_read(cssl,r,s.size());
+		if(ret>0)
+			s.assign(r,ret);
+		delete[] r;
+		return ret;
+	}
+	return -1;
 }
 			
 int SocketSSL::write(const std::string &s) const{
-	return SSL_write(cssl,s.data(),s.size());
+	if(cssl!=NULL)
+		return SSL_write(cssl,s.data(),s.size());
+	return -1;
 }
 
 void SocketSSL::set_block(const bool block){
-	if(block){
-		
-	}else{
+	if(sock!=INVALID_SOCKET){
+		if(block){
 #ifdef WIN32
-	
+			
 #else
-		int oldattr = fcntl(sock, F_GETFL);
-		if(oldattr==-1){
-			std::cout <<"Erreur fnctl" << std::endl;
-			exit(EXIT_FAILURE);
-		}
-		int r = fcntl(sock, F_SETFL, oldattr | O_NONBLOCK);
-		if(r==-1){
-			std::cout <<"Erreur fnctl" << std::endl;
-			exit(EXIT_FAILURE);
-		}
+			
 #endif
+		}else{
+#ifdef WIN32
+		
+#else
+			int oldattr = fcntl(sock, F_GETFL);
+			if(oldattr==-1){
+				std::cout <<"Erreur fnctl" << std::endl;
+				exit(EXIT_FAILURE);
+			}
+			int r = fcntl(sock, F_SETFL, oldattr | O_NONBLOCK);
+			if(r==-1){
+				std::cout <<"Erreur fnctl" << std::endl;
+				exit(EXIT_FAILURE);
+			}
+#endif
+		}
 	}
 }
 

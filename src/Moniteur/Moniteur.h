@@ -15,9 +15,15 @@ class Moniteur{
 		
 		void _push_back(T & d);
 		
+		void push_back(T & d);
+		
 		void _pop(const T & d);
 		
+		void pop(const T & d);
+		
 		void _clear();
+		
+		void clear();
 		
 		unsigned int size() const;
 		
@@ -41,6 +47,11 @@ void Moniteur<T>::_push_back(T & d){
 }
 
 template<typename T>
+void Moniteur<T>::push_back(T & d){
+	data.push_back(d);
+}
+
+template<typename T>
 void Moniteur<T>::_pop(const T & d){
 	std::unique_lock<std::mutex> lock(atomic_access);
 	typename std::vector<T>::iterator it = data.begin(), end = data.end();
@@ -50,8 +61,21 @@ void Moniteur<T>::_pop(const T & d){
 }
 
 template<typename T>
+void Moniteur<T>::pop(const T & d){
+	typename std::vector<T>::iterator it = data.begin(), end = data.end();
+	while(it!=end && *it!=d){++it;}
+	if(it!=end)
+		data.erase(it);
+}
+
+template<typename T>
 void Moniteur<T>::_clear(){
 	std::unique_lock<std::mutex> lock(atomic_access);
+	data.clear();
+}
+
+template<typename T>
+void Moniteur<T>::clear(){
 	data.clear();
 }
 
