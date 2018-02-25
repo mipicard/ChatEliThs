@@ -27,6 +27,7 @@
 namespace Socket_Portabilite{
 	void init();
 	void end();
+	void sleepcp(int milliseconds);
 }
 
 #endif //SOCKET_PORTABILITE_H_INCLUDED

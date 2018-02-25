@@ -26,7 +26,7 @@ class Serveur{
 		Moniteur<Client *> liste_client;
 		Moniteur<Client *> garbage;
 		
-		std::thread thread_boucle_serveur,thread_garbage_collector;
+		std::thread thread_boucle_serveur,thread_garbage_collector,thread_im_up;
 		
 		std::mutex envoie_global;
 		
@@ -34,9 +34,11 @@ class Serveur{
 		
 		void garbage_collector();
 		
+		void im_up();
+		
 		void boucle_read_client_texte(Client * client);
 		
-		void send_to_all_client_texte(const std::string & message);
+		void send_to_all_client_texte(const int & cmd,const std::string & message);
 	public:
 		Serveur();
 		

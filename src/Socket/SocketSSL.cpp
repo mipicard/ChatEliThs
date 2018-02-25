@@ -22,7 +22,7 @@ void SocketSSL_n::end(){
 	Socket_Portabilite::end();
 }
 
-SocketSSL::SocketSSL() : sock(INVALID_SOCKET),addr("0.0.0.0"),port("0000"),cssl(NULL){}
+SocketSSL::SocketSSL() : sock(INVALID_SOCKET),addr("0.0.0.0"),port("00000"),cssl(NULL){}
 
 SocketSSL::~SocketSSL(){
 	end_and_destroy();
@@ -260,7 +260,7 @@ void SocketSSL::end_and_destroy(){
 		close(sock);
 		sock=INVALID_SOCKET;
 		strcpy(addr,"0.0.0.0");
-		strcpy(port,"0000");
+		strcpy(port,"00000");
 	}
 }
 

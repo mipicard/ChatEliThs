@@ -3,6 +3,7 @@
 #include "Communication.h"
 
 int Communication::read(std::string & message,const SocketSSL & socket){
+	message.clear();
 	int ret = 0;
 	std::string entete;
 	entete.resize(TAILLE_ENTETE);
@@ -10,7 +11,6 @@ int Communication::read(std::string & message,const SocketSSL & socket){
 	if(lecture_entete==TAILLE_ENTETE){
 		int ln=bin2int(entete.substr(0,TAILLE_LN)),cmd=bin2int(entete.substr(TAILLE_LN));
 		if(ln>0){
-			message.clear();
 			int read_ln = 0,deja=0,tmp_deja=0;
 			std::string part_message;
 			while(read_ln!=-1 && deja<ln){

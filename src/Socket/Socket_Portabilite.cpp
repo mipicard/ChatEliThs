@@ -19,3 +19,10 @@ void Socket_Portabilite::end(){
 #endif
 }
 
+void Socket_Portabilite::sleepcp(int milliseconds){ // Cross-platform sleep function
+#ifdef WIN32
+	Sleep(milliseconds);
+#else
+	usleep(milliseconds * 1000);
+#endif // win32
+}

@@ -3,7 +3,7 @@
 
 #include "SocketSSL.h"
 
-#define TIME_OUT 30*CLOCKS_PER_SEC
+#define TIME_OUT 10*CLOCKS_PER_SEC
 
 //TAILLE_ENTETE = TAILLE_LN + TAILLE_CMD
 #define TAILLE_ENTETE 16
@@ -11,7 +11,7 @@
 #define TAILLE_CMD 5
 
 /**
- * @note structure des messages : 11caractere+5caractere en binaire pour la longueur du message et la commande correspondante.
+ * @note structure des messages : TAILLE_LN caractere + TAILLE_CMD caractere en binaire pour la longueur du message et la commande correspondante.
  * n:0 sera un message anti-time-out (le reste du message est ignoré)
  * n:1 sera un message client de longueur n
  * 
