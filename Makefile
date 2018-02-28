@@ -24,7 +24,7 @@ all : make_dir $(EXE)
 Client_ChatEliThs_console : $(Socket_OBJ) $(Client_OBJ) obj/Console/main_client.o
 	@$(CC) $^ $(FLAG) $(INCLUDE) $(SSL) $(THREAD) -g -o bin/$@.exe
 ifeq ($(OS),Windows_NT)
-	copy data\ca.crt bin
+	@-copy data\ca.crt bin
 else
 	@-cp data/ca.crt bin/ca.crt
 endif
@@ -32,24 +32,24 @@ endif
 Serveur_ChatEliThs_console : $(Socket_OBJ) $(Serveur_OBJ) obj/Console/main_serveur.o
 	@$(CC) $^ $(FLAG) $(INCLUDE) $(SSL) $(THREAD) -g -o bin/$@.exe
 ifeq ($(OS),Windows_NT)
-	copy data\servwiki.crt bin
-	copy data\servwiki.key bin
+	@-copy data\servwiki.crt bin
+	@-copy data\servwiki.key bin
 else 
 	@-cp data/servwiki.crt bin
 	@-cp data/servwiki.key bin
-end
+endif
 
 #Création des dossiers de compilation
 make_dir :
 ifeq ($(OS),Windows_NT)
-	if not exist obj mkdir obj
-		if not exist obj/Core mkdir obj/Core
-			if not exist obj/Core/Socket mkdir obj/Core/Socket
-			if not exist obj/Core/Serveur mkdir obj/Core/Serveur
-			if not exist obj/Core/Client mkdir obj/Core/Client
-		if not exist obj/Console mkdir obj/Console
-		if not exist obj/Fenetre mkdir obj/Fenetre
-	if not exist bin mkdir bin
+	@if not exist obj mkdir obj
+		@if not exist obj\Core mkdir obj\Core
+			@if not exist obj\Core\Socket mkdir obj\Core\Socket
+			@if not exist obj\Core\Serveur mkdir obj\Core\Serveur
+			@if not exist obj\Core\Client mkdir obj\Core\Client
+		@if not exist obj\Console mkdir obj\Console
+		@if not exist obj\Fenetre mkdir obj\Fenetre
+	@if not exist bin mkdir bin
 else
 	@mkdir -p obj
 		@mkdir -p obj/Core
@@ -72,21 +72,21 @@ obj/%.o : src/%.cpp
 
 clean :
 ifeq ($(OS),Windows_NT)
-	del /S /Q obj
+	@-del /S /Q obj
 else
 	@-rm -rf obj
 endif
 
 mrproper : clean
 ifeq ($(OS),Windows_NT)
-	del /S /Q bin doc/html
+	@-del /S /Q bin doc\html
 else
 	@-rm -rf obj bin doc/html
 endif
 
 doc :
 ifeq ($(OS),Windows_NT)
-	echo NOT IMPLEMENTED FOR WINDOWS
+	@-echo NOT IMPLEMENTED FOR WINDOWS
 else
 	@-doxygen doc/config.doxy
 endif

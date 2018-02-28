@@ -5,7 +5,6 @@ void Socket_Portabilite::init(){
 	WSADATA wsa;
 	int err = WSAStartup(MAKEWORD(2,2),&wsa);
 	if(err<0){
-		puts("WSAStartup failed !");
 		exit(EXIT_FAILURE);
 	}
 #else

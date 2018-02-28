@@ -1,7 +1,7 @@
 #ifndef SOCKET_PORTABILITE_H_INCLUDED
 #define SOCKET_PORTABILITE_H_INCLUDED
 
-#ifdef WIN32
+#if defined(_WIN32) || defined(_WIN64)
 	#include <winsock2.h>
 	typedef int socklen_t;
 //#elif defined(__linux__)
