@@ -11,9 +11,15 @@
 
 #include "Socket_Portabilite.h"
 
-namespace SocketSSL_n{	
+namespace SocketSSL_n{
+	/**
+	 * @brief Initialise le systeme de sockets inter-OS et le systeme SSL
+	 */
 	void init();
 	
+	/**
+	 * @brief Termine le systeme de sockets inter-OS et le systeme SSL
+	 */
 	void end();
 }
 

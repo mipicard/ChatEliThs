@@ -2,7 +2,7 @@
 #define SERVEUR_H_INCLUDED
 
 #include <atomic>
-#include <ctime>
+#include <chrono>
 #include <thread>
 #include <vector>
 
@@ -11,20 +11,20 @@
 
 typedef struct{
 	int id;
-	clock_t lastping;
+	std::chrono::time_point<std::chrono::system_clock> lastping;
 	
 	SocketSSL* texte;
 	std::thread * ecoute_texte;
-} Client;
-Client * createClient(int id,SocketSSL * texte);
-void deleteClient(Client * c);
+} ClientOfServeur;
+ClientOfServeur * createClient(int id,SocketSSL * texte);
+void deleteClient(ClientOfServeur * c);
 
 class Serveur{
 	private:
 		SocketSSL ecoute;
 		std::atomic<bool> serveur_up;
-		Moniteur<Client *> liste_client;
-		Moniteur<Client *> garbage;
+		Moniteur<ClientOfServeur *> liste_client;
+		Moniteur<ClientOfServeur *> garbage;
 		
 		std::thread thread_boucle_serveur,thread_garbage_collector,thread_im_up;
 		
@@ -36,7 +36,7 @@ class Serveur{
 		
 		void im_up();
 		
-		void boucle_read_client_texte(Client * client);
+		void boucle_read_client_texte(ClientOfServeur * client);
 		
 		void send_to_all_client_texte(const int & cmd,const std::string & message);
 	public:

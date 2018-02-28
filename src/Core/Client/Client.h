@@ -2,7 +2,7 @@
 #define CLIENT_H_INCLUDED
 
 #include <atomic>
-#include <ctime>
+#include <chrono>
 #include <thread>
 
 #include "../Socket/SocketSSL.h"
@@ -11,7 +11,7 @@
 class Client{
 	private:
 		std::atomic<bool> client_connected,client_waited_to_stop;
-		clock_t lastping;
+		std::chrono::time_point<std::chrono::system_clock> lastping;
 		SocketSSL texte;
 		
 		std::thread thread_lecture_texte,thread_im_up;

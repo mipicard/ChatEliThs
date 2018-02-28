@@ -3,7 +3,7 @@
 
 #include "SocketSSL.h"
 
-#define TIME_OUT 10*CLOCKS_PER_SEC
+#define TIME_OUT 10*1000
 
 //TAILLE_ENTETE = TAILLE_LN + TAILLE_CMD
 #define TAILLE_ENTETE 16

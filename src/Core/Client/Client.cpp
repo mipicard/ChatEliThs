@@ -21,7 +21,7 @@ bool Client::connect(const std::string & host,const std::string port){
 		if(texte.get_cssl()!=NULL){
 			texte.set_block(false);
 			
-			lastping = clock();
+			lastping = std::chrono::system_clock::now();
 			
 			//lance l'ecoute texte
 			thread_lecture_texte = std::thread(&Client::lecture_texte,this);
@@ -75,7 +75,7 @@ SocketSSL & Client::get_texte(){return texte;}
 //Client -> threads client et ecoute
 void Client::im_up(){
 	while(atomic_exchange(&client_connected,true)){
-		Socket_Portabilite::sleepcp((TIME_OUT/CLOCKS_PER_SEC*1000)/10);
+		Socket_Portabilite::sleepcp(TIME_OUT/4);
 		Communication::write(0,"",texte);
 	}
 	atomic_exchange(&client_connected,false);
@@ -92,8 +92,8 @@ void Client::lecture_texte(){
 			atomic_exchange(&client_connected,false);
 			return;
 		}else if(lecture == 0){
-			clock_t actuel = clock();
-			if(actuel!=-1 && actuel-lastping>TIME_OUT){
+			std::chrono::time_point<std::chrono::system_clock> actuel = std::chrono::system_clock::now();
+			if(std::chrono::duration_cast<std::chrono::milliseconds>(actuel-lastping).count()>TIME_OUT){
 				retour_texte("Server timed out.");
 				atomic_exchange(&client_waited_to_stop,true);
 				atomic_exchange(&client_connected,false);
@@ -101,9 +101,10 @@ void Client::lecture_texte(){
 			}
 		}else if(lecture == 1){
 			retour_texte(message);
+			lastping=std::chrono::system_clock::now();
 		}else if(lecture == 2){
-			//std::cout << "Reset time out" << std::endl;
-			lastping=clock();
+			//retour_texte("Reset time out");
+			lastping=std::chrono::system_clock::now();
 		}else if(lecture == 3){
 			retour_texte("Server closed connection. You are disconnected.");
 			atomic_exchange(&client_waited_to_stop,true);

@@ -6,18 +6,18 @@
 
 //CLIENT du serveur
 
-Client * createClient(int id,SocketSSL * texte){
-	Client * c = new Client();
+ClientOfServeur * createClient(int id,SocketSSL * texte){
+	ClientOfServeur * c = new ClientOfServeur();
 	
 	c->id = id;
-	c->lastping = clock();
+	c->lastping = std::chrono::system_clock::now();
 	
 	c->texte = texte;
 	c->ecoute_texte = NULL;
 	return c;
 }
 
-void deleteClient(Client * c){
+void deleteClient(ClientOfServeur * c){
 	//Suppression des threads
 	if(c->ecoute_texte!=NULL){
 		c->ecoute_texte->join();
@@ -110,7 +110,7 @@ void Serveur::boucle_serveur(){
 			client->set_block(false);
 			send_to_all_client_texte(1,messageNouvelleConnexion);
 			
-			Client * c = createClient(id,client);++id;
+			ClientOfServeur * c = createClient(id,client);++id;
 			c->ecoute_texte = new std::thread(&Serveur::boucle_read_client_texte,this,c);
 			
 			liste_client._push_back(c);
@@ -126,7 +126,7 @@ void Serveur::garbage_collector(){
 		Socket_Portabilite::sleepcp(1000);
 		garbage.lock();
 		while(garbage.size()!=0){
-			Client *g = garbage.at(0);
+			ClientOfServeur *g = garbage.at(0);
 			liste_client._pop(g);
 			deleteClient(g);
 			garbage.pop(g);
@@ -138,7 +138,7 @@ void Serveur::garbage_collector(){
 
 void Serveur::im_up(){
 	while(atomic_exchange(&serveur_up,true)){
-		Socket_Portabilite::sleepcp((TIME_OUT/CLOCKS_PER_SEC*1000)/10);
+		Socket_Portabilite::sleepcp(TIME_OUT/4);
 		send_to_all_client_texte(0,"");
 	}
 	atomic_exchange(&serveur_up,false);
@@ -146,7 +146,7 @@ void Serveur::im_up(){
 
 
 //Serveur -> partie communication
-void Serveur::boucle_read_client_texte(Client * client){
+void Serveur::boucle_read_client_texte(ClientOfServeur * client){
 	std::string message;
 	while(atomic_exchange(&serveur_up,true)){
 		Socket_Portabilite::sleepcp(100);
@@ -156,18 +156,18 @@ void Serveur::boucle_read_client_texte(Client * client){
 			garbage._push_back(client);
 			return;
 		}else if(lecture == 0){
-			clock_t actuel = clock();
-			if(actuel!=-1 && actuel-client->lastping>TIME_OUT){
+			std::chrono::time_point<std::chrono::system_clock> actuel = std::chrono::system_clock::now();
+			if(std::chrono::duration_cast<std::chrono::milliseconds>(actuel-client->lastping).count()>TIME_OUT){
 				send_to_all_client_texte(1,"Timed out("+std::to_string(client->id)+")");
 				garbage._push_back(client);
 				return;
 			}
 		}else if(lecture == 1){
 			send_to_all_client_texte(1,"["+std::to_string(client->id)+"]:"+message);
-			client->lastping=clock();
+			client->lastping=std::chrono::system_clock::now();
 		}else if(lecture == 2){
 			//std::cout << "Reset time out" << std::endl;
-			client->lastping=clock();
+			client->lastping=std::chrono::system_clock::now();
 		}else if(lecture == 3){
 			send_to_all_client_texte(1,"Disconnected("+std::to_string(client->id)+")");
 			garbage._push_back(client);
@@ -179,7 +179,7 @@ void Serveur::boucle_read_client_texte(Client * client){
 	atomic_exchange(&serveur_up,false);
 }
 
-static void send_texte(Client * client,const int & cmd,const std::string & message){
+static void send_texte(ClientOfServeur * client,const int & cmd,const std::string & message){
 	Communication::write(cmd,message,*(client->texte));
 }
 
@@ -191,7 +191,8 @@ void Serveur::send_to_all_client_texte(const int & cmd,const std::string & messa
 	liste_client.lock();
 	for(int i=0,nb=liste_client.size();i<nb;++i)
 		tab.push_back(std::thread(send_texte,liste_client.at(i),cmd,message));
-	liste_client.unlock();
+	//liste_client.unlock();
 	for(int i=0,m=tab.size();i<m;++i)
 		tab[i].join();
+	liste_client.unlock();
 }

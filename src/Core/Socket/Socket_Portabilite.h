@@ -25,8 +25,22 @@
 #endif
 
 namespace Socket_Portabilite{
+	/**
+	 * @brief Initialise le systeme de sockets inter-OS
+	 */
 	void init();
+	
+	/**
+	 * @brief Termine le systeme de sockets inter-OS
+	 */
 	void end();
+	
+	/**
+	 * @brief Met en pause le programme pendant x millisecondes
+	 * @param [in] milliseconds le temps de pause en millisecondes
+	 * 
+	 * Met en pause le programme pendant x millisecondes, indépendamment de l'OS
+	 */
 	void sleepcp(int milliseconds);
 }
 

@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <vector>
 
-#include "Serveur.h"
+#include "../Core/Serveur/Serveur.h"
 
 /**
  * @param s string of maximum size of 5, if not, return false
@@ -61,7 +61,7 @@ int main(){
 			std::cout << "--- List of command : ---" << std::endl;
 			std::cout << "---> start XXXXX : for start the server" << std::endl;
 			std::cout << "---> stop : for stopping the server" << std::endl;
-			std::cout << "---> restart XXXXX : for restarting the server" << std::endl;
+			std::cout << "---> restart XXXXX : to restart the server" << std::endl;
 			std::cout << "---> exit : for exiting the server (it will stop it)" << std::endl;
 			std::cout << "---> help : to read this help" << std::endl;
 		}else if(exit!="exit"){
