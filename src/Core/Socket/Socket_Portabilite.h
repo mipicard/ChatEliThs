@@ -3,6 +3,7 @@
 
 #if defined(_WIN32) || defined(_WIN64)
 	#include <winsock2.h>
+	#include <ws2tcpip.h>
 	typedef int socklen_t;
 //#elif defined(__linux__)
 #else

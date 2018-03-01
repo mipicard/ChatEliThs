@@ -53,7 +53,7 @@ void SocketSSL::creer_ecoute_serveur(const std::string & port){
 	
 	rp = result;
 	while(rp!=NULL){
-		bool yes = true;
+		char yes;
 		sock = socket(rp->ai_family, rp->ai_socktype,rp->ai_protocol);
 		if(sock==INVALID_SOCKET){//Tente l'allocation de la socket
 			//std::cout << "Impossible de creer un socket. Nouvel essai..." << std::endl;
