@@ -8,9 +8,10 @@ Client_OBJ=$(patsubst src/%.cpp,obj/%.o,$(wildcard src/Core/Client/*.cpp))
 
 #Bibliotheque
 ifeq ($(OS),Windows_NT)
-	INCLUDE=
-	SSL=
-	THREAD=
+	INCLUDE=-Lextern/Windows \
+			-Iextern/Windows \
+	SSL=    -lssl -lcrypto
+	THREAD= 
 else
 	INCLUDE=-L/usr/local/lib
 	SSL=-lssl -lcrypto
