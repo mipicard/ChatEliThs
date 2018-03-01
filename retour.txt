@@ -1,0 +1,14 @@
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libssl.dll.a when searching for -lssl
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libssl.a when searching for -lssl
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows\libssl.a when searching for -lssl
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libssl.dll.a when searching for -lssl
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libssl.a when searching for -lssl
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lssl
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libcrypto.dll.a when searching for -lcrypto
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libcrypto.a when searching for -lcrypto
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows\libcrypto.a when searching for -lcrypto
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libcrypto.dll.a when searching for -lcrypto
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: skipping incompatible extern/Windows/libcrypto.a when searching for -lcrypto
+c:/mingw/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lcrypto
+collect2.exe: error: ld returned 1 exit status
+make: *** [Makefile:26: Client_ChatEliThs_console] Error 1
