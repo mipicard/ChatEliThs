@@ -67,7 +67,7 @@ endif
 
 #Commande globales
 obj/%.o : src/%.cpp
-	@$(CC) $^ $(FLAG) $(LDFLAGS) $(LDLIBS) -g -c -o $@ 
+	@$(CC) $^ $(FLAG) $(INCLUDE) $(SSL) $(THREAD) -g -c -o $@ 
 
 .PHONY: clean mrproper doc
 
